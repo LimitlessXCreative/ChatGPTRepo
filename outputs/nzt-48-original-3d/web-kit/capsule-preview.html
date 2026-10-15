@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NZT-48 · Golden capsule</title><style>body{margin:0;background:#080907;color:#e7debd;font:13px system-ui}canvas{display:block;touch-action:none;cursor:grab}header{position:absolute;top:24px;left:28px;pointer-events:none}strong{display:block;font-size:22px}span{display:block;margin-top:7px;color:#969585;font-size:11px}nav{position:absolute;bottom:28px;left:0;right:0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}a,button{padding:12px 20px;border:1px solid #645837;border-radius:26px;background:#1c1d17;color:#e0c981;text-decoration:none;font:inherit;cursor:pointer}#error{position:absolute;top:45%;left:20%;right:20%}</style><script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/addons/"}}</script></head><body><header><strong>NZT-48 / Golden capsule</strong><span>Polished gold · Studio lighting · Drag to rotate</span></header><nav><a href="index.html">Bottle preview</a><button id="rotate" aria-pressed="false">Rotate</button><a href="nzt48-gold-pill.glb" download>Download capsule GLB</a></nav><p id="error" hidden></p><script type="module">
+import * as T from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {setupNZTStudio,applyNZTStudioMaterials} from './studio-lighting.js';
+async function init(){
+const renderer=new T.WebGLRenderer({alpha:true,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);document.body.prepend(renderer.domElement);
+const scene=new T.Scene(); // Fully baked capsule: no lights or environment required.
+const gltf=await new GLTFLoader().loadAsync('./nzt48-gold-pill.glb');const model=gltf.scene;applyNZTStudioMaterials(model,scene.environment);scene.add(model);
+const size=new T.Box3().setFromObject(model).getSize(new T.Vector3());const camera=new T.PerspectiveCamera(30,innerWidth/innerHeight,.0001,1);
+function fit(){camera.position.set(0,0,Math.max(size.x/camera.aspect,size.y)/(2*Math.tan(T.MathUtils.degToRad(15)))*1.55);camera.lookAt(0,0,0);camera.updateProjectionMatrix();}
+fit();let spinning=false,drag=null,last=0,raf=0;const rotate=document.getElementById('rotate');
+function requestRender(){if(!raf)raf=requestAnimationFrame(frame);}
+function frame(now){const dt=last?Math.min((now-last)/1000,.05):0;last=now;if(spinning)model.rotation.x+=dt*.4;renderer.render(scene,camera);raf=0;if(spinning)requestRender();}
+rotate.onclick=()=>{spinning=!spinning;rotate.setAttribute('aria-pressed',String(spinning));last=0;requestRender();};
+renderer.domElement.onpointerdown=e=>{drag=[e.clientX,e.clientY];spinning=false;rotate.setAttribute('aria-pressed','false');renderer.domElement.setPointerCapture(e.pointerId);};
+renderer.domElement.onpointermove=e=>{if(!drag)return;model.rotation.y+=(e.clientX-drag[0])*.008;model.rotation.x+=(e.clientY-drag[1])*.008;drag=[e.clientX,e.clientY];requestRender();};renderer.domElement.onpointerup=renderer.domElement.onpointercancel=()=>drag=null;
+addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;fit();requestRender();});requestRender();window.capsuleReady=true;
+}init().catch(error=>{const e=document.getElementById('error');e.hidden=false;e.textContent=error.message;console.error(error);});
+</script></body></html>

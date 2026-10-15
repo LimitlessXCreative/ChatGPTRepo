@@ -1,0 +1,10 @@
+{
+  "frameCount": 216,
+  "fps": 24,
+  "duration": 9.0,
+  "width": 960,
+  "height": 960,
+  "framePattern": "frames/frame-{number}.webp",
+  "alpha": true,
+  "source": "Melius generated turntable; chroma matte converted to true RGBA; white plinth removed"
+}

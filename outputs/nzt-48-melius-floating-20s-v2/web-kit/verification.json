@@ -1,0 +1,47 @@
+{
+  "durationSeconds": 20,
+  "frameCount": 480,
+  "fps": 24,
+  "exactLoopEndpointMatch": true,
+  "decodedWebmAlphaVerified": true,
+  "samples": [
+    {
+      "frame": 1,
+      "transparentFraction": 0.713414780521262,
+      "uncropped": true
+    },
+    {
+      "frame": 97,
+      "transparentFraction": 0.7206464334705075,
+      "uncropped": true
+    },
+    {
+      "frame": 241,
+      "transparentFraction": 0.7343449931412894,
+      "uncropped": true
+    },
+    {
+      "frame": 337,
+      "transparentFraction": 0.7271870713305898,
+      "uncropped": true
+    },
+    {
+      "frame": 409,
+      "transparentFraction": 0.7175308641975309,
+      "uncropped": true
+    },
+    {
+      "frame": 480,
+      "transparentFraction": 0.713414780521262,
+      "uncropped": true
+    }
+  ],
+  "additionalMeliusRequests": 0,
+  "additionalMeliusCredits": 0,
+  "diagonalSweepVerified": {
+    "right": -24,
+    "left": 32,
+    "return": -24
+  },
+  "yawReversed": true
+}

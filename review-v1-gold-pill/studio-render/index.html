@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>NZT48 packaging studio</title><style>body{margin:0;background:#08090b;color:#eee;font:14px system-ui;display:grid;place-items:center;min-height:100vh}canvas{width:min(70vh,86vw)!important;height:min(70vh,86vw)!important;background:repeating-conic-gradient(#17191c 0 25%,#222428 0 50%) 0/24px 24px}nav{display:flex;gap:12px;margin:18px}button{padding:12px 20px;background:#1b1d20;color:#eee;border:1px solid #555;border-radius:24px}</style></head><body><h2>NZT48 · Transparent packaging studio</h2><div id="studio"></div><nav><button data-count="1">Render 1 bottle</button><button data-count="2">Render 2 bottles</button><button data-count="3">Render 3 bottles</button></nav><p id="status">Loading packaging…</p><script type="module">
+import * as T from '../../website/nzt48/design_handoff_nzt48/3d/vendor/three.module.min.js';
+import {GLTFLoader} from '../../website/nzt48/design_handoff_nzt48/3d/vendor/addons/loaders/GLTFLoader.js';
+import {setupNZTStudio,applyNZTStudioMaterials} from '../../website/nzt48/design_handoff_nzt48/3d/studio-lighting.js';
+import {setupGoldStudio} from '../../website/nzt48/design_handoff_nzt48/3d/gold-studio.js';
+const renderer=new T.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.setSize(1600,1600);renderer.setClearColor(0,0);document.querySelector('#studio').append(renderer.domElement);
+const scene=new T.Scene();setupNZTStudio(renderer,scene);const goldEnv=setupGoldStudio(renderer,new T.Scene()).texture;renderer.toneMappingExposure=.88;
+// Large reflection sources with moderate contrast, preserving a matte label.
+for(const light of scene.children)if(light.isLight)light.intensity*=.65;
+const asset=await new GLTFLoader().loadAsync('../../website/nzt48/design_handoff_nzt48/3d/nzt48-bottle-cap.glb');const template=asset.scene.getObjectByName('NZT48Product');applyNZTStudioMaterials(template,scene.environment);
+template.traverse(o=>{if(!o.isMesh)return;const m=o.material;
+ if(m.name==='Reflective gold cap'){m.envMapIntensity=1.15;m.roughness=.2;}
+ if(m.name==='Matte black label with gold foil'){m.envMap=goldEnv;m.envMapIntensity=.85;m.roughness=1;m.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=max(roughnessFactor,0.25);');};}
+ if(m.name==='Glossy amber-black bottle'){m.envMapIntensity=.65;m.roughness=.14;m.clearcoatRoughness=.12;}
+});
+const dims=new T.Box3().setFromObject(template),height=dims.getSize(new T.Vector3()).y,center=dims.getCenter(new T.Vector3());
+const group=new T.Group();scene.add(group);const camera=new T.PerspectiveCamera(28,1,.01,100);camera.position.set(0,.10,4.1);camera.lookAt(0,0,0);
+function render(count){group.clear();const arrangements={1:[[0,0,0,-.18,.025]],2:[[-.245,.025,-.10,-.30,.045],[.245,-.035,.09,.12,-.035]],3:[[-.37,.04,-.16,-.28,.045],[.37,.04,-.16,.15,-.045],[0,-.065,.20,-.12,0]]};
+ for(const [x,y,z,yaw,roll] of arrangements[count]){const holder=new T.Group(),model=template.clone(true);model.position.sub(center);holder.add(model);holder.scale.setScalar(1/height);holder.position.set(x,y,z);holder.rotation.set(.015,yaw,roll);group.add(holder);}
+ group.updateMatrixWorld(true);const box=new T.Box3().setFromObject(group),sphere=box.getBoundingSphere(new T.Sphere());const aspect=camera.aspect,fov=T.MathUtils.degToRad(camera.fov/2);camera.position.set(sphere.center.x,sphere.center.y+.06,sphere.center.z+Math.max(box.getSize(new T.Vector3()).x,box.getSize(new T.Vector3()).y)/(2*Math.tan(fov))*1.12+box.getSize(new T.Vector3()).z/2);camera.lookAt(sphere.center);camera.updateProjectionMatrix();renderer.render(scene,camera);document.querySelector('#status').textContent=count+' bottle'+(count===1?'':'s')+' · 1600 × 1600 · true alpha';}
+for(const button of document.querySelectorAll('[data-count]'))button.onclick=()=>{const count=+button.dataset.count;render(count);renderer.domElement.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nzt48-studio-'+count+'-bottle.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);},'image/png');};
+render(1);
+</script></body></html>

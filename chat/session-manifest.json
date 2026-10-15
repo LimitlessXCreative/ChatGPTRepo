@@ -1,0 +1,38 @@
+{
+  "thread_id": "01a1206a-e007-72e1-b2b2-bd16bd34b9fe",
+  "filename": "rollout-2026-10-09T16-57-17-01a1206a-e007-72e1-b2b2-bd16bd34b9fe.jsonl",
+  "relative_session_path": "sessions/2026/10/09",
+  "compressed_sha256": "3c87ad9f626e0b5680e5d87f59cecdba6c3e7cabffc48187105820608f5249af",
+  "parts": [
+    {
+      "name": "session.jsonl.gz.part000",
+      "bytes": 25165824,
+      "sha256": "bf614273424c41316be0e16ecfa2f6407703e57ccb96cdbbbe415cd9aa08a983"
+    },
+    {
+      "name": "session.jsonl.gz.part001",
+      "bytes": 25165824,
+      "sha256": "a6620f28a06b8ae65c9d83247fbfea96b8aa5848ee484477d7284ef337c17459"
+    },
+    {
+      "name": "session.jsonl.gz.part002",
+      "bytes": 25165824,
+      "sha256": "c84c4aaf47eee6950e58917edf80ed9ba5b94b71965201111fbe70000ce8b481"
+    },
+    {
+      "name": "session.jsonl.gz.part003",
+      "bytes": 25165824,
+      "sha256": "c98d02b4adfc1210ef24a506489c5491df0e615cc6fa4718e9d4328184fdc700"
+    },
+    {
+      "name": "session.jsonl.gz.part004",
+      "bytes": 25165824,
+      "sha256": "43b86185de0be0cee80cbd6b183a1b2a586f3059a91bed69e6c2735c1f5e0fee"
+    },
+    {
+      "name": "session.jsonl.gz.part005",
+      "bytes": 12456933,
+      "sha256": "684744fef0d193a37e2628deb7077ebb8d37435b6187ec765e825e6d549912c6"
+    }
+  ]
+}

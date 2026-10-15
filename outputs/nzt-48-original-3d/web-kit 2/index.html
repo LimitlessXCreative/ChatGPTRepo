@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NZT-48 · Web model</title>
+<style>*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% 35%,#19202c 0%,#0b0c10 38%,#050506 78%);color:#e7debd;font:13px system-ui,sans-serif}canvas{display:block;width:100vw;height:100svh;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}header{position:absolute;top:24px;left:28px;pointer-events:none}header strong{display:block;letter-spacing:.03em;font-size:22px}header span{display:block;margin-top:7px;font-size:11px;color:#939688}nav{position:absolute;bottom:28px;left:0;right:0;display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;padding:0 20px}button,a{border:1px solid #645837;border-radius:26px;padding:12px 20px;color:#e0c981;background:#1c1d17;text-decoration:none;font:inherit;cursor:pointer}button:hover,a:hover{background:#303020}input{accent-color:#d8b85b;width:145px}#open{background:#d6ba71;color:#242317}#error{position:absolute;top:40%;left:20%;right:20%;line-height:1.7}small{font-size:10px;color:#858c78}@media(max-width:500px){header{top:20px;left:20px}nav{bottom:20px;gap:8px}button,a{padding:10px 16px}}</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/addons/"}}</script></head>
+<body><header><strong>NZT-48 / Original</strong><span>Independent bottle, cap & pills · Drag to rotate</span></header><nav><button id="rotate" aria-pressed="false">Rotate</button><button id="open" aria-pressed="false">Open bottle</button><input id="progress" type="range" min="0" max="100" value="0" aria-label="Bottle opening"><a href="capsule-preview.html">View capsule</a><a href="nzt48-bottle-cap.glb" download>Bottle + cap GLB</a></nav><p id="error" hidden></p>
+<script type="module">
+import * as T from 'three';
+import { loadNZT } from './nzt-model.js';
+import { setupNZTStudio } from './studio-lighting.js';
+
+async function init(){
+  const renderer=new T.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
+  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;document.body.prepend(renderer.domElement);
+  const scene=new T.Scene();
+  setupNZTStudio(renderer,scene);
+
+  const product=await loadNZT(scene);product.model.rotation.set(.025,-.08,-.14);
+  const camera=new T.PerspectiveCamera(28,innerWidth/innerHeight,.001,10);
+  // This demo authors transforms in JavaScript. The GLBs contain zero clips.
+  const pills=Array.from({length:3},()=>product.createPill());
+  const mouthY=product.capClosed.position.y+.0023;
+  function setDemoOpening(p){
+    product.setCapOpening(p);
+    const reveal=T.MathUtils.smoothstep(p,.45,1);
+    pills.forEach((pill,i)=>{
+      pill.visible=reveal>.001;
+      const start=new T.Vector3((i-1)*.003,mouthY-.010+i*.002,.001);
+      const end=new T.Vector3(-.011+i*.011,mouthY+.010+i*.009,.003);
+      pill.position.copy(start).lerp(end,reveal);
+      pill.rotation.set((.15+i*.2)*reveal,(.3+i*.5)*reveal,(.72+i*.38)*reveal);
+    });
+  }
+  setDemoOpening(0);const closedBox=new T.Box3().setFromObject(product.model);
+  setDemoOpening(1);const openBox=new T.Box3().setFromObject(product.model);setDemoOpening(0);
+  const closedCenter=closedBox.getCenter(new T.Vector3()),openCenter=openBox.getCenter(new T.Vector3());
+  const closedSize=closedBox.getSize(new T.Vector3()),openSize=openBox.getSize(new T.Vector3());
+  function fit(p=0){const center=closedCenter.clone().lerp(openCenter,p),size=closedSize.clone().lerp(openSize,p);const dist=Math.max(size.y,size.x/camera.aspect)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)))*1.27;camera.position.set(center.x,center.y+.003,dist);camera.lookAt(center);camera.updateProjectionMatrix();}
+  fit();
+  const slider=document.getElementById('progress'),open=document.getElementById('open'),rotate=document.getElementById('rotate');
+  let goal=0,progress=0,spinning=false,drag=null,last=performance.now(),raf=0;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function requestRender(){if(!raf){last=performance.now();raf=requestAnimationFrame(frame);}}
+  function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;progress+=(goal-progress)*(reduced?1:1-Math.exp(-dt*6));if(Math.abs(progress-goal)<.0001)progress=goal;if(spinning)product.model.rotation.y+=dt*.35;setDemoOpening(progress);fit(progress);slider.value=Math.round(progress*100);renderer.render(scene,camera);raf=0;if(spinning||Math.abs(progress-goal)>.0001)requestRender();}
+  open.onclick=()=>{goal=goal>.5?0:1;open.textContent=goal?'Close bottle':'Open bottle';open.setAttribute('aria-pressed',String(goal>0));requestRender();};
+  slider.oninput=()=>{goal=progress=Number(slider.value)/100;open.textContent=goal>.5?'Close bottle':'Open bottle';open.setAttribute('aria-pressed',String(goal>.5));requestRender();};
+  rotate.onclick=()=>{spinning=!spinning;rotate.setAttribute('aria-pressed',String(spinning));requestRender();};
+  renderer.domElement.onpointerdown=e=>{spinning=false;rotate.setAttribute('aria-pressed','false');drag=e.clientX;renderer.domElement.setPointerCapture(e.pointerId);};
+  renderer.domElement.onpointermove=e=>{if(drag===null)return;product.model.rotation.y+=(e.clientX-drag)*.008;drag=e.clientX;requestRender();};
+  renderer.domElement.onpointerup=renderer.domElement.onpointercancel=()=>{drag=null;};
+  addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;fit(progress);requestRender();});
+  window.nztWeb={...product,pills,renderer,scene,camera,setProgress:p=>{goal=progress=p;setDemoOpening(p);requestRender();}};window.nztWebReady=true;requestRender();
+}
+init().catch(error=>{const e=document.getElementById('error');e.hidden=false;e.textContent='The preview could not load. Serve this folder over HTTP and open it in a browser with WebGL enabled. '+error.message;console.error(error);});
+</script></body></html>

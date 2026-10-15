@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NZT-48 · Studio 360°</title>
+<style>
+*{box-sizing:border-box}body{margin:0;color:#ddd5c8;background:#08090b;font:14px system-ui,sans-serif;min-height:100svh;display:grid;place-items:center}header{position:absolute;top:28px;left:30px;z-index:1}header strong{font-size:20px;font-weight:550}header p{margin:7px 0;font-size:12px;color:#8b8c91}.stage{width:min(90vw,80svh,820px);aspect-ratio:1;display:grid;place-items:center;touch-action:pan-y;cursor:grab}canvas{width:100%;height:100%;display:block;background:transparent}nav{position:fixed;bottom:24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding:0 16px}button,a{font:inherit;border:1px solid #45423b;color:inherit;background:#161719;padding:11px 18px;border-radius:24px;text-decoration:none;cursor:pointer}button:hover,a:hover{background:#252527}#status{color:#999;font-size:12px;position:absolute;top:50%}.checker{background-color:#161719;background-image:linear-gradient(45deg,#26272a 25%,transparent 25%),linear-gradient(-45deg,#26272a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#26272a 75%),linear-gradient(-45deg,transparent 75%,#26272a 75%);background-size:32px 32px;background-position:0 0,0 16px,16px -16px,-16px 0}.light{background:#c8c3b9;color:#242321}.light button,.light a{color:#252523;background:#ddd8cf;border-color:#a7a197}
+.embed{background:transparent}.embed header,.embed nav{display:none}.embed .stage{width:min(100vw,100svh)}
+</style>
+</head>
+<body>
+<header><strong>NZT-48 / Studio 360°</strong><p>Studio turntable · Drag to rotate</p></header>
+<main class="stage"><canvas width="960" height="960" aria-label="NZT-48 bottle rotating through a complete studio turntable"></canvas><span id="status" role="status">Loading turntable…</span></main>
+<nav><button id="play" aria-pressed="true">Pause</button><button id="front">Front view</button><button id="background">Background: Dark</button><a href="nzt48-studio-360-alpha.webm" download>Download transparent video</a></nav>
+<script type="module">
+if(new URLSearchParams(location.search).has('embed'))document.body.classList.add('embed');
+// A transparent frame sequence keeps identical alpha compositing across browsers.
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#status');
+const play=document.querySelector('#play'),stage=document.querySelector('.stage');
+try{
+ const response=await fetch('frames.json');if(!response.ok)throw Error('Turntable assets unavailable.');
+ const manifest=await response.json(),count=manifest.frameCount,fps=manifest.fps;
+ const cache=new Map(),pending=new Map();let index=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,last=performance.now(),drag=null,busy=false;
+ const wrap=i=>((Math.round(i)%count)+count)%count;
+ async function image(i){i=wrap(i);if(cache.has(i)){const im=cache.get(i);cache.delete(i);cache.set(i,im);return im;}if(pending.has(i))return pending.get(i);
+  const task=(async()=>{const r=await fetch('frames/frame-'+String(i+1).padStart(4,'0')+'.webp');if(!r.ok)throw Error('Frame unavailable.');const im=await createImageBitmap(await r.blob());cache.set(i,im);while(cache.size>20){const key=cache.keys().next().value;cache.get(key).close();cache.delete(key);}pending.delete(i);return im;})();pending.set(i,task);return task;
+ }
+ async function draw(){if(busy)return;busy=true;const wanted=wrap(index);try{const im=await image(wanted);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(im,0,0,canvas.width,canvas.height);status.hidden=true;}catch(e){status.hidden=false;status.textContent=e.message;}finally{busy=false;}for(let j=1;j<4;j++)image(wanted+j).catch(()=>{});}
+ function updateButton(){play.textContent=playing?'Pause':'Play';play.setAttribute('aria-pressed',String(playing));}
+ play.onclick=()=>{playing=!playing;updateButton();};updateButton();
+ document.querySelector("#front").onclick=()=>{playing=false;index=0;updateButton();draw();};
+ stage.onpointerdown=e=>{playing=false;updateButton();drag={x:e.clientX,index};stage.setPointerCapture(e.pointerId);};
+ stage.onpointermove=e=>{if(!drag)return;index=drag.index+(e.clientX-drag.x)/stage.clientWidth*count;draw();};
+ stage.onpointerup=stage.onpointercancel=()=>{drag=null;};
+ let background=0;document.querySelector('#background').onclick=e=>{background=(background+1)%3;document.body.classList.toggle('light',background===1);document.body.classList.toggle('checker',background===2);e.target.textContent='Background: '+['Dark','Light','Checker'][background];};
+ await draw();let previous=-1;
+ function tick(now){const delta=Math.min((now-last)/1000,.1);last=now;if(playing)index+=delta*fps;const current=wrap(index);if(current!==previous){previous=current;draw();}requestAnimationFrame(tick);}requestAnimationFrame(tick);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;updateButton();}});
+}catch(e){status.textContent=e.message;}
+</script>
+</body></html>

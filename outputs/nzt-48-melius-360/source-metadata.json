@@ -1,0 +1,16 @@
+{
+  "ffmpeg_version": "7.1 built with Apple clang version 13.1.6 (clang-1316.0.21.2.5)",
+  "codec": "hevc",
+  "pix_fmt": "yuv420p10le(tv, bt709, progressive)",
+  "fps": 24.0,
+  "source_size": [
+    1440,
+    1440
+  ],
+  "size": [
+    1440,
+    1440
+  ],
+  "rotate": 0,
+  "duration": 9.04
+}

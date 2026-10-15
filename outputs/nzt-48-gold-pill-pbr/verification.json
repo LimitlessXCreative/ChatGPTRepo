@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "bytes": 34680,
+  "triangles": 1632,
+  "vertices": 980,
+  "drawCalls": 1,
+  "materials": 1,
+  "embeddedTextures": 0,
+  "bakedLighting": false,
+  "unlitMaterial": false,
+  "animations": 0,
+  "dimensionsMm": [
+    16.504038125276566,
+    5.665941629558802,
+    5.665941629558802
+  ],
+  "units": "meters",
+  "longAxis": "X",
+  "origin": [
+    0,
+    0,
+    0
+  ],
+  "scale": 2,
+  "metalness": 1,
+  "roughness": 0.15
+}

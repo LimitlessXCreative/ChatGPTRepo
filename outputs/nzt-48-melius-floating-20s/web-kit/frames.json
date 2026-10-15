@@ -1,0 +1,12 @@
+{
+  "frameCount": 480,
+  "fps": 24,
+  "duration": 20,
+  "width": 1080,
+  "height": 1080,
+  "framePattern": "frames/frame-{number}.webp",
+  "alpha": true,
+  "loopEndpointsMatch": true,
+  "additionalMeliusCredits": 0,
+  "source": "Existing Melius render, processed locally with floating tilt, optical interpolation and loop closure"
+}

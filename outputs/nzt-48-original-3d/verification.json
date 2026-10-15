@@ -1,0 +1,22 @@
+{
+  "closed": {
+    "cap": [
+      0,
+      3.1549999713897705,
+      0
+    ],
+    "duration": 3,
+    "materials": 2048
+  },
+  "opened": {
+    "cap": [
+      0.25,
+      4.724999904632568,
+      -0.17000000178813934
+    ],
+    "duration": 3,
+    "materials": 2048
+  },
+  "errors": [],
+  "verified": true
+}

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "sampledKeyColor": "0x0fdd26",
+  "samples": [
+    {
+      "frame": 1,
+      "transparentPixels": 556454,
+      "opaquePixels": 354889,
+      "plinthRemoved": true
+    },
+    {
+      "frame": 49,
+      "transparentPixels": 556587,
+      "opaquePixels": 354977,
+      "plinthRemoved": true
+    },
+    {
+      "frame": 97,
+      "transparentPixels": 556354,
+      "opaquePixels": 355371,
+      "plinthRemoved": true
+    },
+    {
+      "frame": 145,
+      "transparentPixels": 556307,
+      "opaquePixels": 355772,
+      "plinthRemoved": true
+    },
+    {
+      "frame": 193,
+      "transparentPixels": 556303,
+      "opaquePixels": 355621,
+      "plinthRemoved": true
+    },
+    {
+      "frame": 216,
+      "transparentPixels": 556241,
+      "opaquePixels": 355432,
+      "plinthRemoved": true
+    }
+  ],
+  "webmDecodedAlphaVerified": true,
+  "webmBytes": 3282275
+}

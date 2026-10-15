@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NZT-48 · Exported model</title><style>body{margin:0;background:#101110;color:#dcc483;font:14px Arial}canvas{display:block}nav{position:fixed;bottom:25px;left:0;right:0;text-align:center}button,a{color:#dcc483;background:#191b18;border:1px solid #655934;border-radius:25px;padding:12px 22px;margin:0 5px;text-decoration:none;cursor:pointer;font:inherit}</style>
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/three.min.js"></script><script src="model.js"></script>
+<nav><a href="index.html">Product studio</a><button id="open">Open bottle</button></nav>
+<script type="module">
+import * as T from 'three';import{GLTFLoader}from './assets/loaders/GLTFLoader.js';
+const r=new T.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:true});r.setSize(innerWidth,innerHeight);r.setPixelRatio(Math.min(devicePixelRatio,2));r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=1.1;document.body.prepend(r.domElement);
+const s=new T.Scene();s.environment=NZT.makeEnvironment(r);s.add(new T.HemisphereLight(0xffffff,0x8d8270,.8));for(const[a,b,c,d,e]of[[0xfff7e9,3,-4,6,5],[0xe5eafe,1.2,4,4,-1],[0xffffff,.7,0,5,-4]]){const l=new T.DirectionalLight(a,b);l.position.set(c,d,e);s.add(l);}
+const camera=new T.PerspectiveCamera(30,innerWidth/innerHeight,.001,10);camera.position.set(0,.055,.26);camera.lookAt(0,.05,0);
+const gltf=await new GLTFLoader().loadAsync('./model/nzt48-web-lowpoly.glb');s.add(gltf.scene);const root=gltf.scene.getObjectByName('NZT48_ORIGINAL');root.rotation.y=-.16;
+const mixer=new T.AnimationMixer(gltf.scene);const action=mixer.clipAction(gltf.animations[0]);action.setLoop(T.LoopOnce,1);action.clampWhenFinished=true;action.play();action.paused=true;
+window.loadedGLB={gltf,mixer,action,root};window.glbState=function(t){action.paused=false;mixer.setTime(t);action.paused=true;camera.position.set(0,.05+(t/3)*.018,(.26+(t/3)*.055));camera.lookAt(0,.05+(t/3)*.018,0);r.render(s,camera);let label;gltf.scene.traverse(o=>{if(o.isMesh&&o.material.name==='Matte black label with gold foil')label=o;});return{cap:gltf.scene.getObjectByName('Cap').position.toArray(),duration:gltf.animations[0].duration,materials:label.material.map.image.width};};
+let goal=0,time=0,last=performance.now();function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;time+=(goal-time)*(1-Math.exp(-dt*5));window.glbState(time);requestAnimationFrame(frame);}requestAnimationFrame(frame);
+document.getElementById('open').onclick=e=>{goal=goal?0:3;e.currentTarget.textContent=goal?'Close bottle':'Open bottle';};
+window.setGLBGoal=t=>{goal=time=t;return window.glbState(t);};window.glbReady=true;
+addEventListener('resize',()=>{r.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
+</script></html>

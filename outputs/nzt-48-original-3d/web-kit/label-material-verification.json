@@ -1,0 +1,13 @@
+{
+  "sourceArtwork": "artwork/approved-label.png",
+  "printedCapsules": 60,
+  "foilColorMatchesCap": true,
+  "foilRoughnessMatchesCap": true,
+  "matteBlackPixels": 2405556,
+  "matteWhitePixels": 450999,
+  "fullGoldFoilPixels": 78803,
+  "embeddedTextures": 2,
+  "verified": true,
+  "model": "nzt48-bottle-cap.glb",
+  "approvedTextureBytesPreserved": true
+}

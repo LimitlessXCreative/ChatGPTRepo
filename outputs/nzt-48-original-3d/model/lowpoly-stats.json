@@ -1,0 +1,33 @@
+{
+  "triangles": 9696,
+  "uniqueVertices": 4677,
+  "drawCalls": 10,
+  "textureWidth": 3072,
+  "textureHeight": 1024,
+  "insideCapsules": 0,
+  "revealCapsules": 3,
+  "capsuleScale": 2,
+  "capsuleLighting": "UV baked HDR studio illumination (KHR_materials_unlit)",
+  "bottleFinish": "Glossy deep amber-black",
+  "labelFinish": {
+    "stock": "Matte black",
+    "gold": "Reflective gold foil",
+    "goldColor": "#ffbd16",
+    "foilPixels": 79255,
+    "artworkSource": {
+      "file": "references/approved-label.png",
+      "crop": [
+        78,
+        78,
+        3600,
+        1200
+      ],
+      "capsulesPrinted": 60
+    }
+  },
+  "labelInches": {
+    "width": 6,
+    "height": 2
+  },
+  "fileBytes": 1527620
+}

@@ -1,0 +1,29 @@
+{
+  "thread_id": "01a1206a-e007-72e1-b2b2-bd16bd34b9fe",
+  "title": "NZT-48 3D",
+  "source_version": "0.162.0-alpha.2",
+  "records": 3900,
+  "credential_patterns_redacted": {
+    "github_token": 0,
+    "openai_key": 0,
+    "bearer_jwt": 0
+  },
+  "missing_original_reference_files": [
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-21836bfb-1244-4a46-ae2b-1794aaaeba30.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-2316fdb7-494b-4530-9c95-260c27ff5de4.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-41cb6e9b-19cd-4f91-b59b-3ab3ab1083d7.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-61989bbb-114b-48b6-b398-ee1ad603f9ea.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-6b1e459e-2167-4d2e-9138-e7eb5941f64e.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-81b03d16-d466-45ce-9286-cee43bfacaab.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-9e3d141e-08a0-43ef-922c-5ba384e9b5ff.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-9f488308-c126-43a3-a7ec-7d4bf2e83b6f.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-b30d489a-c0b8-478c-b032-d641f03e5785.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-ba010035-7026-472b-ac4f-f57b1f13ab5e.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-debcfe2e-9397-45a8-a8e7-1d029a561c7a.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-e4a2b883-cf16-4072-9159-a46a0ddc8883.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-e8ad1557-13a1-45b8-a9bb-7394d23b2e88.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-ea2c238b-f2b3-4201-835a-2e2bb324d360.png",
+    "/var/folders/g6/vvyms8kj4kbcvp6gm4kc_pk00000gn/T/codex-clipboard-f89c1936-e45d-4134-85fb-df6959ad946f.png"
+  ],
+  "note": "This is a point-in-time export. It is not live chat synchronization. Account credentials and global settings are not included."
+}

@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "animationClips": 0,
+  "unitRootScales": true,
+  "independentBottleAndCap": true,
+  "singleCenteredPill": true,
+  "pillSizeAlreadyDoubled": true,
+  "dimensions": {
+    "labelHeightMm": 50.80000311136246,
+    "labelCircumferenceMm": 152.40000268874968,
+    "pillLengthMm": 16.504038125276566
+  },
+  "basePivotY": -3.258435210019839e-11,
+  "capClosedPosition": [
+    0,
+    0.07333803439641585,
+    0
+  ],
+  "approvedEmbeddedTexturesPreserved": true,
+  "foilAndMatteMasksPreserved": true,
+  "bakedCapsuleUnlitMaterialsPreserved": true,
+  "files": {
+    "nzt48-bottle-cap.glb": 721524,
+    "nzt48-gold-pill.glb": 793940
+  },
+  "browserImportVerified": true,
+  "independentCapOpenAndClosePreviewVerified": true,
+  "bakedPillPreviewWithoutLightsVerified": true,
+  "browserErrors": []
+}

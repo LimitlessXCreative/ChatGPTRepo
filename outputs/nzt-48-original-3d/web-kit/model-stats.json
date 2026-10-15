@@ -1,0 +1,28 @@
+{
+  "bottleCap": {
+    "fileBytes": 721524,
+    "triangles": 7104,
+    "meshDrawCalls": 4,
+    "embeddedTextures": 2,
+    "animationClips": 0,
+    "units": "meters"
+  },
+  "singlePill": {
+    "fileBytes": 793940,
+    "triangles": 864,
+    "meshDrawCalls": 2,
+    "embeddedTextures": 2,
+    "animationClips": 0,
+    "units": "meters"
+  },
+  "labelInches": {
+    "width": 6,
+    "height": 2
+  },
+  "labelFinish": "Matte black + cap-matched gold foil",
+  "capClosedPosition": [
+    0,
+    0.07333803439641585,
+    0
+  ]
+}
