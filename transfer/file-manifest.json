@@ -11,8 +11,8 @@
   },
   {
     "path": "CONTEXT.md",
-    "bytes": 3106,
-    "sha256": "30af4e981596893f136b383f3185bb40de998719eee8178c7e6ce275c2ed3616"
+    "bytes": 3321,
+    "sha256": "d455f78916d82b09dd8fde2a4ba6ba7faf814fd32080904d263c0c16f9b155c9"
   },
   {
     "path": "README.md",
@@ -3918,11 +3918,6 @@
     "path": "outputs/nzt-48-melius-floating-20s/web-kit/video-metadata.json",
     "bytes": 277,
     "sha256": "a265b282f03fc80f2326769614fe0022b72454895600b3aaad23d1cd5d95f469"
-  },
-  {
-    "path": "outputs/nzt-48-melius-floating-20s-v2/.DS_Store",
-    "bytes": 6148,
-    "sha256": "6294d76d7a004921a299d3cd890aa78af95caa44c0e872a9923cbc643353288d"
   },
   {
     "path": "outputs/nzt-48-melius-floating-20s-v2/NZT-48-Floating-Anticlockwise-20s-HTML-Kit.zip",
@@ -8845,11 +8840,6 @@
     "sha256": "a265b282f03fc80f2326769614fe0022b72454895600b3aaad23d1cd5d95f469"
   },
   {
-    "path": "outputs/nzt-48-nad/.DS_Store",
-    "bytes": 8196,
-    "sha256": "07756d3759c8e5a1117c38a4fad96dc3784493430dc8c340ac4c19d6d79cfe7f"
-  },
-  {
     "path": "outputs/nzt-48-nad/NZT-48-NAD-Tropical-Mango-complete-batch.zip",
     "bytes": 27779944,
     "sha256": "61de9b711cfca61042c5ec04672b48f4f91d72720da32c5a0bacaf264cab5b83"
@@ -8883,11 +8873,6 @@
     "path": "outputs/nzt-48-nad/banner-transparent-assets/03-two-gummies-mango-transparent.png",
     "bytes": 1541950,
     "sha256": "e855ad40131e8a72311c36e72d1011caa4e879b2061758f9a4ab310de21dfa2f"
-  },
-  {
-    "path": "outputs/nzt-48-nad/batch-01-function-lifestyle/.DS_Store",
-    "bytes": 6148,
-    "sha256": "1ed6931903eb0a998231c267a8625f859dd36292425aab2a68261c02ce94b0a8"
   },
   {
     "path": "outputs/nzt-48-nad/batch-01-function-lifestyle/01-clean-mango-product-hero.png",
@@ -9128,11 +9113,6 @@
     "path": "outputs/nzt-48-nad/parallax-gummies/06-single-underside.png",
     "bytes": 692387,
     "sha256": "20684c514b34cd79423532b2f2d7dbcf20639973c6bb7bbbf5f45554bce59321"
-  },
-  {
-    "path": "outputs/nzt-48-original-3d/.DS_Store",
-    "bytes": 6148,
-    "sha256": "d5c49e9c39421500d7f8fefd5dbc2b333da9d5e3ec7adf1c91d7623e578e4694"
   },
   {
     "path": "outputs/nzt-48-original-3d/NZT-48-Threejs-Low-Poly-Claude-Kit.zip",

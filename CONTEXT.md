@@ -1,6 +1,6 @@
 # NZT-48 3D — continuation context
 
-The user wants to move this same chat, its context, and the NZT working files to another computer without leaving the source Mac running. The repository is named GPT Repo / GPT-Repo. Do not claim that Git automatically syncs live chats or that a shared snapshot is editable.
+The user wants to move this same chat, its context, and the NZT working files to another computer without leaving the source Mac running. The local repository is named GPT Repo / GPT-Repo. The user selected https://github.com/LimitlessXCreative/ChatGPTRepo as the GitHub destination and confirmed the receiving computer is a Mac. The destination was changed from public to private before transfer. Do not claim that Git automatically syncs live chats or that a shared snapshot is editable.
 
 ## Product and materials
 
