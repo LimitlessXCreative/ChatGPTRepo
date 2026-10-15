@@ -22,6 +22,19 @@ def sha256(path):
             h.update(chunk)
     return h.hexdigest()
 
+def relocate_metadata(value):
+    if isinstance(value, dict):
+        for key in list(value):
+            if key == 'cwd':
+                value[key] = str(ROOT)
+            elif key in ('workspace_roots', 'runtime_workspace_roots', 'writable_roots') and isinstance(value[key], list):
+                value[key] = [str(ROOT)]
+            else:
+                relocate_metadata(value[key])
+    elif isinstance(value, list):
+        for child in value:
+            relocate_metadata(child)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--codex-home', type=Path, default=Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))))
@@ -49,8 +62,8 @@ def main():
             for line in src:
                 record = json.loads(line)
                 payload = record.get('payload', {})
-                if record.get('type') in ('session_meta', 'turn_context') and 'cwd' in payload:
-                    payload['cwd'] = str(ROOT)
+                if record.get('type') in ('session_meta', 'turn_context', 'world_state'):
+                    relocate_metadata(payload)
                 out.write(json.dumps(record, ensure_ascii=False, separators=(',', ':')) + '\n')
                 records += 1
         print(f'Archive verified: {records:,} records, original chat {manifest["thread_id"]}.')

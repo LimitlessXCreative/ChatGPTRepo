@@ -16,8 +16,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 3801,
-    "sha256": "5347cc16e541a4dd32b0aa82502f0640a3465b22e3a3442ec3a598e4e9d834e8"
+    "bytes": 3974,
+    "sha256": "97a5e4d4b172852eb1b25cd54fe8f14cd3ff405ece03483d8b3f9e63165a0dc9"
   },
   {
     "path": "Restore Chat.cmd",
@@ -10046,8 +10046,8 @@
   },
   {
     "path": "transfer/restore_chat.py",
-    "bytes": 4476,
-    "sha256": "a7ccd1c43c29449ad00aa60e888d416ed2616cef7a7ab69ca5f30518d65c733a"
+    "bytes": 4960,
+    "sha256": "fe9d2db18e9b9813d333d3d5781f13bd6e9a7b76a997d3183899c4bda0b6d083"
   },
   {
     "path": "website/nzt48/design_handoff_nzt48/3d/gold-studio.js",

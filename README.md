@@ -1,6 +1,6 @@
 # GPT Repo
 
-Portable NZT-48 3D project and chat transfer kit.
+Portable NZT-48 3D project and chat transfer kit. Destination repository: https://github.com/LimitlessXCreative/ChatGPTRepo.
 
 ## Continue on another computer
 
@@ -15,7 +15,7 @@ Portable NZT-48 3D project and chat transfer kit.
 
 The helper restores chat ID `01a1206a-e007-72e1-b2b2-bd16bd34b9fe`, updates its working directory to this checkout, and resumes it with Codex CLI if available. Sign into Codex on the new computer when asked. On Mac, the launcher also checks for the CLI bundled in ChatGPT.app. If Codex CLI isn't found, install it using the official Codex setup instructions and run the helper again.
 
-The original rollout format is an internal Codex format. The source installation (0.162.0-alpha.2) successfully read this exported session in a clean isolated profile under the original thread ID. Desktop sidebar discovery and a complete resumed turn must still be checked on the destination. If it doesn't appear immediately, use the CLI resume command printed by the helper. Do not delete the source Mac's copy before that check.
+The original rollout format is an internal Codex format. The source installation (0.162.0-alpha.2) successfully read and resumed this exported session in a clean isolated profile under the original thread ID, using this checkout as its working directory. No model turn was run during that test. Desktop sidebar discovery and a complete resumed turn must still be checked on the destination. If it doesn't appear immediately, use the CLI resume command printed by the helper. Do not delete the source Mac's copy before that check.
 
 **This is a one-time session restore, not automatic bidirectional chat syncing.** Git syncs the project files. Close the chat on one computer before continuing the same restored session elsewhere; do not run diverging copies at once. For supported app-managed live migration, use Codex's host-to-host Hand off after connecting the destination and saving the same Git project there.
 
